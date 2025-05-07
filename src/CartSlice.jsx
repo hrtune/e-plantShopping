@@ -1,12 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const examplePayload = {
-  name: "Aloe Vera",
-  image: "https://cdn.pixabay.com/photo/2018/04/02/07/42/leaf-3283175_1280.jpg",
-  description: "Soothing gel used for skin ailments.",
-  cost: "$14"
-}
-
 export const CartSlice = createSlice({
   name: 'cart',
   initialState: {
@@ -29,7 +22,7 @@ export const CartSlice = createSlice({
 
     },
     removeItem: (state, action) => {
-      state.items = state.items.filter(item => item.name !== action.payload)
+      state.items = state.items.filter(item => item.name !== action.payload.name)
     },
     updateQuantity: (state, action) => {
       const { name, quantity } = action.payload; // Destructure the product name and new quantity from the action payload
