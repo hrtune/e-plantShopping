@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
+import { render } from 'react-dom';
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
@@ -252,6 +253,16 @@ function ProductList({ onHomeClick }) {
         e.preventDefault();
         setShowCart(false);
     };
+
+    const renderPlant = (plant) => (
+        <div className="product-card" key={plant.name}>
+            <img className='product-image' src={plant.image} alt={plant.name}/>
+            <div className='product-title'>{plant.name}</div>
+            <div className='product-description'>{plant.description}</div>
+            <div className='product-price'>{plant.cost}</div>
+            <button className='product-button' onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+        </div>
+    )
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -274,8 +285,13 @@ function ProductList({ onHomeClick }) {
             </div>
             {!showCart ? (
                 <div className="product-grid">
-
-
+                    {plantsArray.map(cat =>
+                        <div key={cat}>
+                            <h1><div>{cat.category}</div></h1>
+                            <div className='product-list'>
+                                {cat.plants.map(p => renderPlant(p))}
+                            </div>
+                        </div>)}
                 </div>
             ) : (
                 <CartItem onContinueShopping={handleContinueShopping} />
